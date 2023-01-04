@@ -1,0 +1,8 @@
+
+URL: localhost.com
+FileName: file.json
+
+
+rest:
+  url: "https://example.org/primenumbers/v1"
+  port: 8443
