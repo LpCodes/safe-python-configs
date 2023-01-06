@@ -3,6 +3,8 @@ from config import drivers_config
 import json
 import yaml
 import configparser
+import os
+from dotenv import load_dotenv
 
 
 def Python_Configuration_Files():
@@ -49,3 +51,19 @@ def INI():
 
 
 # INI()
+
+def envmethod():
+    """A project can have multiple instances like testing, development, staging or production. When using different instances different environment variables can be needed. Therefore, to solve this issue, a project can use multiple .env files like
+
+.env.shared
+.env.development
+.env.production"""
+    load_dotenv()
+    # print(os.environ["YOUR_SECRETS"])
+    c = os.environ["myname"]
+    print(c)
+    print(os.environ["password"])
+    print(os.environ["LOGS_PATH"])
+
+
+envmethod()
