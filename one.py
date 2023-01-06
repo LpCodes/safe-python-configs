@@ -66,4 +66,4 @@ def envmethod():
     print(os.environ["LOGS_PATH"])
 
 
-envmethod()
+# envmethod()
