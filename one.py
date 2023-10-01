@@ -1,47 +1,56 @@
-from cgi import print_arguments
-from config import drivers_config
 import json
 import yaml
 import configparser
 import os
 from dotenv import load_dotenv
+from config import drivers_config  # Assuming drivers_config is defined in config.py
 
 
-def Python_Configuration_Files():
-    '''create config.py & store required vals in dict import it & use dic key to accesss required val'''
+def python_configuration_files():
+    """
+    Create config.py and store required values in a dictionary. Import it and use dictionary keys to access required values.
+    """
     print(drivers_config)
+    print(drivers_config.get('URL'))  # Using .get() to avoid KeyError if 'URL' is not present
+    print(drivers_config.get('FileName'))
 
-    print(drivers_config['URL'])
-    print(drivers_config['FileName'])
+
+# Uncomment the following line to use the function
+# python_configuration_files()
 
 
-# Python_Configuration_Files()
-
-def JSON_method():
-
-    # reading config file
-
+def json_method():
+    """
+    Read values from a JSON config file.
+    """
     with open('config.json') as file:
         data = json.load(file)
-        print(data['drivers_config']['URL'])
+        print(data.get('drivers_config', {}).get('URL'))  # Using .get() to handle missing keys
 
 
-# JSON_method()
+# Uncomment the following line to use the function
+# json_method()
 
 
-def YML_data():
-
+def yml_data():
+    """
+    Read values from a YAML config file.
+    """
     with open('config.yml', 'r') as file:
         prime_service = yaml.safe_load(file)
         print(prime_service, type(prime_service))
-        print(prime_service['URL'])
-        print(prime_service['rest']['url'])
+        print(prime_service.get('URL'))
+        print(prime_service.get('rest', {}).get('url'))  # Using .get() to handle missing keys
 
 
-# YML_data()
+# Uncomment the following line to use the function
+# yml_data()
 
 
-def INI():
+def ini():
+    """
+    Read values from an INI config file.
+    """
     file = open("config.ini", "r")
 
     config = configparser.RawConfigParser(allow_no_value=True)
@@ -50,20 +59,24 @@ def INI():
     print(config.get("drivers_config", "URL"))
 
 
-# INI()
+# Uncomment the following line to use the function
+# ini()
 
-def envmethod():
-    """A project can have multiple instances like testing, development, staging or production. When using different instances different environment variables can be needed. Therefore, to solve this issue, a project can use multiple .env files like
 
-.env.shared
-.env.development
-.env.production"""
+def env_method():
+    """
+    Load environment variables from a .env file.
+    """
     load_dotenv()
-    # print(os.environ["YOUR_SECRETS"])
-    c = os.environ["myname"]
-    print(c)
-    print(os.environ["password"])
-    print(os.environ["LOGS_PATH"])
+    # Use os.environ.get() with a default value to avoid KeyError
+    my_name = os.environ.get("myname", "DefaultName")
+    password = os.environ.get("password", "DefaultPassword")
+    logs_path = os.environ.get("LOGS_PATH", "DefaultLogsPath")
+
+    print(my_name)
+    print(password)
+    print(logs_path)
 
 
-# envmethod()
+# Uncomment the following line to use the function
+# env_method()
